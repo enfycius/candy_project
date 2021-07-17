@@ -1,8 +1,7 @@
-package com.example.candy.domain.Challenge;
+package com.example.candy.domain.challenge;
 
 import com.example.candy.enums.Category;
 import com.example.candy.enums.Target;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
