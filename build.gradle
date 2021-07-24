@@ -26,6 +26,7 @@ dependencies {
     implementation group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
     implementation group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
     implementation 'com.auth0:java-jwt:3.18.1'
+    annotationProcessor group: 'org.springframework.boot', name: 'spring-boot-configuration-processor'
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
     // https://mvnrepository.com/artifact/javax.validation/validation-api
