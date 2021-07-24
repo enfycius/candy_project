@@ -2,10 +2,7 @@ package com.example.candy.domain.user;
 
 
 import com.example.candy.security.Jwt;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.apache.commons.lang3.ObjectUtils;
 
 import javax.persistence.*;
@@ -17,6 +14,7 @@ import static java.time.LocalDateTime.now;
 @Entity
 @Getter
 @NoArgsConstructor
+@Builder
 @AllArgsConstructor
 public class User {
 
@@ -41,6 +39,10 @@ public class User {
     
     private int parentCandy;
     private int studentCandy;
+
+    @Transient
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
 
     public void afterLoginSuccess() {
         loginCount++;
