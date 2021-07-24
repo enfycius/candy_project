@@ -24,6 +24,8 @@ public class UserDto {
 
     private Authority authority;
 
+    private String birth;
+
     private int loginCount;
 
     public UserDto(User source) {
@@ -37,6 +39,7 @@ public class UserDto {
                 .append("authority", authority)
                 .append("name", name)
                 .append("email", email)
+                .append("birth", birth)
                 .append("loginCount", loginCount)
                 .toString();
     }
