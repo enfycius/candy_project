@@ -1,5 +1,6 @@
 package com.example.candy.domain.challenge;
 
+import com.example.candy.domain.lecture.Lecture;
 import com.example.candy.domain.problem.Problem;
 import com.example.candy.enums.Category;
 import com.example.candy.enums.Target;
@@ -19,8 +20,11 @@ public class Challenge {
     @Column(name = "challenge_id")
     private long id;
 
-    @OneToMany(mappedBy = "challenge")
+    @OneToMany(mappedBy = "challenge", fetch = FetchType.LAZY)
     private List<Problem> problems = new ArrayList<>();
+
+    @OneToMany(mappedBy = "challenge", fetch = FetchType.LAZY)
+    private List<Lecture> lectures = new ArrayList<>();
 
     private String title;
 
