@@ -4,8 +4,6 @@ import com.example.candy.domain.user.Authority;
 import com.example.candy.domain.user.User;
 import com.example.candy.repository.user.UserRepository;
 import javassist.NotFoundException;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 @Service
 public class UserService {
@@ -23,6 +22,25 @@ public class UserService {
     public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+    }
+
+    @Transactional
+    public User join(String email, String password, String parentPassword, String name, String phone, String birth) {
+        checkArgument(isNotEmpty(password), "password must be provided.");
+        checkArgument(
+                password.length() >= 4 && password.length() <= 15,
+                "password length must be between 4 and 15 characters."
+        );
+
+        User user = User.builder()
+                .email(email)
+                .password(password)
+                .parentPassword(parentPassword)
+                .name(name)
+                .phone(phone)
+                .birth(birth)
+                .build();
+        return save(user);
     }
 
     @Transactional
@@ -49,4 +67,6 @@ public class UserService {
 
         return userRepository.findByEmail(email);
     }
+
+    private User save(User user) { return userRepository.save(user); }
 }
