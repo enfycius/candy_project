@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.ObjectUtils;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import  javax.validation.constraints.Email;
 
@@ -39,11 +36,19 @@ public class User {
     private int loginCount;
     private LocalDateTime lastLoginAt;
     private LocalDateTime createDate;
+    
     private int parentCandy;
     private int studentCandy;
+
+    @Transient
+    private Authority authority;
 
     public void afterLoginSuccess() {
         loginCount++;
         lastLoginAt = now();
+    }
+
+    public void setAuthority(Authority authority){
+        this.authority = authority;
     }
 }
