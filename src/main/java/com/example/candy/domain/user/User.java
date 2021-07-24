@@ -1,6 +1,7 @@
 package com.example.candy.domain.user;
 
 
+import com.example.candy.security.Jwt;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class User {
     @Email
     private String email;
 
+    private String name;
     private String password;
     private String parentPassword;
     private String phone;
@@ -40,15 +42,13 @@ public class User {
     private int parentCandy;
     private int studentCandy;
 
-    @Transient
-    private Authority authority;
-
     public void afterLoginSuccess() {
         loginCount++;
         lastLoginAt = now();
     }
 
-    public void setAuthority(Authority authority){
-        this.authority = authority;
+    public String newApiToken(Jwt jwt, String[] authorities) {
+        Jwt.Claims claims = Jwt.Claims.of(id, name, email, authorities);
+        return jwt.newToken(claims);
     }
 }
