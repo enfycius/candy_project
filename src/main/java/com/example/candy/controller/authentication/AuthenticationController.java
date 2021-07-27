@@ -27,7 +27,7 @@ public class AuthenticationController {
     @PostMapping("/authenticate")
     public ApiResult<AuthenticationResponseDto> authentication(@RequestBody AuthenticationRequest authRequest) {
         try {
-            JwtAuthenticationToken authToken = new JwtAuthenticationToken(authRequest.getPrincipal(), authRequest.getCredentials());
+            JwtAuthenticationToken authToken = new JwtAuthenticationToken(authRequest.getEmail(), authRequest.getPassword());
             Authentication authentication = authenticationManager.authenticate(authToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             return OK(

@@ -38,7 +38,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     private Authentication processUserAuthentication(AuthenticationRequest request) {
         try {
-            User user = userService.login(request.getPrincipal(), request.getCredentials());
+            User user = userService.login(request.getEmail(), request.getPassword());
             JwtAuthenticationToken authenticated =
                     // 응답용 Authentication 인스턴스를 생성한다.
                     // JwtAuthenticationToken.principal 부분에는 JwtAuthentication 인스턴스가 set 된다.
