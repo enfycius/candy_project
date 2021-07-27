@@ -1,10 +1,8 @@
 package com.example.candy.domain.user;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.candy.security.Jwt;
+import lombok.*;
 import org.apache.commons.lang3.ObjectUtils;
 
 import javax.persistence.*;
@@ -16,6 +14,7 @@ import static java.time.LocalDateTime.now;
 @Entity
 @Getter
 @NoArgsConstructor
+@Builder
 @AllArgsConstructor
 public class User {
 
@@ -28,6 +27,7 @@ public class User {
     @Email
     private String email;
 
+    private String name;
     private String password;
     private String parentPassword;
     private String phone;
@@ -41,6 +41,7 @@ public class User {
     private int studentCandy;
 
     @Transient
+    @Enumerated(EnumType.STRING)
     private Authority authority;
 
     public void afterLoginSuccess() {
@@ -48,7 +49,8 @@ public class User {
         lastLoginAt = now();
     }
 
-    public void setAuthority(Authority authority){
-        this.authority = authority;
+    public String newApiToken(Jwt jwt, String[] authorities) {
+        Jwt.Claims claims = Jwt.Claims.of(id, name, email, authorities);
+        return jwt.newToken(claims);
     }
 }

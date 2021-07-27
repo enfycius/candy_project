@@ -1,0 +1,44 @@
+#spring.h2.console.enabled=true
+#spring.datasource.url=jdbc:h2:mem:candydb
+
+#jwt.token.header="api_key"
+#jwt.token.issuer=social_server
+#jwt.token.clientSecret= Rel3Bjce2MajBo09qgkNgYaTuzvJe8iwnBFhsDS5
+#jwt.token.expirySeconds=0
+
+spring:
+  application:
+    name: candy
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+    cache-duration: PT1H
+
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: "jdbc:h2:mem:candydb"
+
+server:
+  port: 8080
+
+jpa:
+  hibernate:
+    ddl-auto: create
+  properties:
+    hibernate:
+      #        show_sql: true
+      format_sql: true
+
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+
+jwt:
+  token:
+    header: api_key
+    issuer: social_server
+    clientSecret: Rel3Bjce2MajBo09qgkNgYaTuzvJe8iwnBFhsDS5
+    expirySeconds: 0
