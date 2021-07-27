@@ -1,6 +1,7 @@
 package com.example.candy.controller.authentication;
 
 import com.example.candy.controller.user.UserDto;
+import com.example.candy.security.AuthenticationResult;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;

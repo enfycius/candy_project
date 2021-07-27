@@ -20,17 +20,17 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
-
-    private final Jwt jwt;
-
+    @Autowired
+    private Jwt jwt;
+    @Autowired
     private JwtTokenConfigure jwtTokenConfigure;
-
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+//    @Autowired
+//    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -43,9 +43,9 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
         http
                 .csrf()
                     .disable()
-                .exceptionHandling()
-                    .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                    .and()
+//                .exceptionHandling()
+//                    .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+//                    .and()
 
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

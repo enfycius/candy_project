@@ -23,6 +23,19 @@ spring:
 server:
   port: 8080
 
+jpa:
+  hibernate:
+    ddl-auto: create
+  properties:
+    hibernate:
+      #        show_sql: true
+      format_sql: true
+
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+
 jwt:
   token:
     header: api_key
