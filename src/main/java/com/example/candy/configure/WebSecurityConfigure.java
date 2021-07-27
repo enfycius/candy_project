@@ -68,12 +68,6 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public Jwt jwt(JwtTokenConfigure jwtTokenConfigure) {
-        return new Jwt(jwtTokenConfigure.getIssuer(), jwtTokenConfigure.getClientSecret(), jwtTokenConfigure.getExpirySeconds());
-    }
-
-
-    @Bean
     public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
         return new JwtAuthenticationTokenFilter(jwtTokenConfigure.getHeader(), jwt);
     }
