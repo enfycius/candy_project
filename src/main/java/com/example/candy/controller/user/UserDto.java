@@ -22,8 +22,6 @@ public class UserDto {
     @Email
     private String email;
 
-    private Authority authority;
-
     private String birth;
 
     private int loginCount;
@@ -36,7 +34,6 @@ public class UserDto {
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
                 .append("id", id)
-                .append("authority", authority)
                 .append("name", name)
                 .append("email", email)
                 .append("birth", birth)
