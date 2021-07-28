@@ -17,10 +17,14 @@ import static java.time.LocalDateTime.now;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@Setter
 @Builder
 @AllArgsConstructor
 public class User {
+
+    public User() {
+        candyHistories = new ArrayList<>();
+    }
 
     @Id
     @GeneratedValue
@@ -28,7 +32,7 @@ public class User {
     private Long id;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<CandyHistory> candyHistories = new ArrayList<>();
+    private List<CandyHistory> candyHistories;
 
     @Email
     private String email;
@@ -65,4 +69,5 @@ public class User {
             throw new IllegalArgumentException("Bad credential");
         }
     }
+
 }

@@ -1,5 +1,7 @@
 package com.example.candy.service;
 
+import com.example.candy.domain.candy.CandyHistory;
+import com.example.candy.domain.candy.EventType;
 import com.example.candy.domain.user.User;
 import com.example.candy.service.user.UserService;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,10 +45,12 @@ class UserServiceTest {
     }
 
     @Test
+    @Transactional
     void 사용자_추가() {
         User user = userService.join(email, password, parentPassword, name, phone, birth);
         assertNotNull(user);
         assertEquals(user.getEmail(), email);
+        assertEquals(user.getCandyHistories().get(0).getEventType(), EventType.INIT);
     }
 
     @Test

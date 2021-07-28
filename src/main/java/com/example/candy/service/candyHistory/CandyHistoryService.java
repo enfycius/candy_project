@@ -20,15 +20,15 @@ public class CandyHistoryService {
     public CandyHistory initCandy(User user) {
         CandyHistory candyHistory = CandyHistory.builder()
                 .totalCandy(0)
-                .user(user)
                 .eventType(EventType.INIT)
                 .parentCandy(0)
                 .studentCandy(0)
                 .amount(0)
                 .createDate(LocalDateTime.now())
                 .build();
-
-        return save(candyHistory);
+        CandyHistory savedCandyHistory = save(candyHistory);
+        savedCandyHistory.addUser(user);
+        return savedCandyHistory;
     }
 
     public CandyHistory save(CandyHistory candyHistory) {
