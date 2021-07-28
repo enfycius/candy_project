@@ -2,6 +2,7 @@ package com.example.candy.domain.candy;
 
 import com.example.candy.domain.user.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import static javax.persistence.FetchType.*;
 @Entity
 @Getter
 @NoArgsConstructor
+@Builder
 @AllArgsConstructor
 public class CandyHistory {
 
@@ -27,5 +29,6 @@ public class CandyHistory {
     private Long totalCandy;
     private Long parentCandy;
     private Long studentCandy;
+
 
 }
