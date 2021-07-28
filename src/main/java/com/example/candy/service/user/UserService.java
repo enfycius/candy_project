@@ -32,6 +32,10 @@ public class UserService {
                 "password length must be between 4 and 15 characters."
         );
 
+        if (findByEmail(email).isPresent()) {
+            throw new IllegalArgumentException("Email is already exists.");
+        }
+
         User user = User.builder()
                 .email(email)
                 .password(password)
