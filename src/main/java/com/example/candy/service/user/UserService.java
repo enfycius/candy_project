@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -35,11 +36,13 @@ public class UserService {
 
         User user = User.builder()
                 .email(email)
-                .password(password)
-                .parentPassword(parentPassword)
+                .password(passwordEncoder.encode(password))
+                .parentPassword(passwordEncoder.encode(parentPassword))
                 .name(name)
                 .phone(phone)
                 .birth(birth)
+                .enabled(true)
+                .createDate(LocalDateTime.now())
                 .build();
 
         User savedUser = save(user);
