@@ -1,6 +1,5 @@
 package com.example.candy.service.user;
 
-import com.example.candy.domain.user.Authority;
 import com.example.candy.domain.user.User;
 import com.example.candy.repository.user.UserRepository;
 import javassist.NotFoundException;
