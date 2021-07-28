@@ -2,7 +2,9 @@ package com.example.candy.service.user;
 
 import com.example.candy.domain.user.User;
 import com.example.candy.repository.user.UserRepository;
+import com.example.candy.service.candyHistory.CandyHistoryService;
 import javassist.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,13 +17,9 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
-        this.passwordEncoder = passwordEncoder;
-        this.userRepository = userRepository;
-    }
+    @Autowired private UserRepository userRepository;
+    @Autowired private PasswordEncoder passwordEncoder;
+    @Autowired private CandyHistoryService candyHistoryService;
 
     @Transactional
     public User join(String email, String password, String parentPassword, String name, String phone, String birth) {
@@ -43,7 +41,10 @@ public class UserService {
                 .phone(phone)
                 .birth(birth)
                 .build();
-        return save(user);
+
+        User savedUser = save(user);
+        candyHistoryService.initCandy(savedUser);
+        return savedUser;
     }
 
     @Transactional

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import java.time.LocalDateTime;
+
 import static javax.persistence.FetchType.*;
 
 @Entity
@@ -26,9 +28,12 @@ public class CandyHistory {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private Long totalCandy;
-    private Long parentCandy;
-    private Long studentCandy;
-
+    private int totalCandy;
+    private int parentCandy;
+    private int studentCandy;
+    @Enumerated(EnumType.STRING)
+    private EventType eventType;
+    private int amount;
+    private LocalDateTime createDate;
 
 }

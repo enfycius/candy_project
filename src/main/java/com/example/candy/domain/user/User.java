@@ -1,6 +1,7 @@
 package com.example.candy.domain.user;
 
 
+import com.example.candy.domain.candy.CandyHistory;
 import com.example.candy.security.Jwt;
 import lombok.*;
 import org.apache.commons.lang3.ObjectUtils;
@@ -8,6 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import  javax.validation.constraints.Email;
 
 import static java.time.LocalDateTime.now;
@@ -24,6 +27,8 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<CandyHistory> candyHistories = new ArrayList<>();
 
     @Email
     private String email;
