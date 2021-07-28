@@ -70,6 +70,5 @@ class UserControllerTest {
         result2.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.response", is(true)));
-
     }
 }
