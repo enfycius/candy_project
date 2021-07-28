@@ -49,19 +49,8 @@ public class UserService {
 
         User user = findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("User Not Found"));
-
-//        if (passwordEncoder.matches(password, user.getPassword())) {
-//            user.setAuthority(Authority.STUDENT);
-//        } else if (passwordEncoder.matches(password, user.getParentPassword())) {
-//            user.setAuthority(Authority.PARENT);
-//        } else {
-//            throw new IllegalArgumentException("Bad credential");
-
+        user.login(passwordEncoder, password);
         user.afterLoginSuccess();
-
-
-
-
         return user;
     }
 

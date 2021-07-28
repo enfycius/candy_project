@@ -4,6 +4,7 @@ package com.example.candy.domain.user;
 import com.example.candy.security.Jwt;
 import lombok.*;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -52,5 +53,11 @@ public class User {
     public String newApiToken(Jwt jwt, String[] authorities) {
         Jwt.Claims claims = Jwt.Claims.of(id, name, email, authorities);
         return jwt.newToken(claims);
+    }
+
+    public void login(PasswordEncoder passwordEncoder, String credentials) {
+        if(!passwordEncoder.matches(credentials, password)) {
+            throw new IllegalArgumentException("Bad credential");
+        }
     }
 }
