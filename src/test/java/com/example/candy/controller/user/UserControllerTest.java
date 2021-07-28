@@ -72,8 +72,4 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.response", is(true)));
 
     }
-
-    @Test
-    void join() {
-    }
 }
