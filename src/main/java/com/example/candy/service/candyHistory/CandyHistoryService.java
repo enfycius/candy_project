@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 public class CandyHistoryService {
 
@@ -23,6 +25,7 @@ public class CandyHistoryService {
                 .parentCandy(0)
                 .studentCandy(0)
                 .amount(0)
+                .createDate(LocalDateTime.now())
                 .build();
 
         return save(candyHistory);
