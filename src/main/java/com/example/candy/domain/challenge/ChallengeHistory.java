@@ -4,6 +4,7 @@ import com.example.candy.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -13,6 +14,7 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChallengeHistory {
@@ -37,6 +39,5 @@ public class ChallengeHistory {
     private LocalDateTime completeDate;
     private LocalDateTime createDate;
     private LocalDateTime modifiedDate;
-
 
 }
