@@ -40,12 +40,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         try {
             User user = userService.login(request.getEmail(), request.getPassword());
             JwtAuthenticationToken authenticated =
-                    // 응답용 Authentication 인스턴스를 생성한다.
-                    // JwtAuthenticationToken.principal 부분에는 JwtAuthentication 인스턴스가 set 된다.
-                    // 로그인 완료 전 JwtAuthenticationToken.principal 부분은 Email 인스턴스가 set 되어 있었다.
                     new JwtAuthenticationToken(new JwtAuthentication(user.getId(), user.getName(), user.getEmail()), null, createAuthorityList(Authority.STUDENT.value()));
-            // JWT 값을 생성한다.
-            // 권한은 ROLE_USER 를 부여한다.
             String apiToken = user.newApiToken(jwt, new String[]{Authority.STUDENT.value()});
             authenticated.setDetails(new AuthenticationResult(apiToken, user));
             return authenticated;
