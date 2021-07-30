@@ -1,11 +1,9 @@
 package com.example.candy.configure;
 
 import com.example.candy.security.Jwt;
-import com.example.candy.security.JwtAuthenticationEntryPoint;
 import com.example.candy.security.JwtAuthenticationProvider;
 import com.example.candy.security.JwtAuthenticationTokenFilter;
 import com.example.candy.service.user.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +18,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Configuration
 @EnableWebSecurity
@@ -53,6 +50,7 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
                     .antMatchers("/").permitAll()
+                    .antMatchers("/h2-console/**").permitAll()
                     .and()
 
                 .formLogin()
@@ -65,6 +63,8 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+        web.ignoring().antMatchers("/h2-console/**");
+
     }
 
     @Bean

@@ -1,13 +1,15 @@
 package com.example.candy.service.user;
 
-import com.example.candy.domain.user.Authority;
 import com.example.candy.domain.user.User;
 import com.example.candy.repository.user.UserRepository;
+import com.example.candy.service.candyHistory.CandyHistoryService;
 import javassist.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -16,13 +18,9 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
-        this.passwordEncoder = passwordEncoder;
-        this.userRepository = userRepository;
-    }
+    @Autowired private UserRepository userRepository;
+    @Autowired private PasswordEncoder passwordEncoder;
+    @Autowired private CandyHistoryService candyHistoryService;
 
     @Transactional
     public User join(String email, String password, String parentPassword, String name, String phone, String birth) {
@@ -32,15 +30,24 @@ public class UserService {
                 "password length must be between 4 and 15 characters."
         );
 
+        if (findByEmail(email).isPresent()) {
+            throw new IllegalArgumentException("Email is already exists.");
+        }
+
         User user = User.builder()
                 .email(email)
-                .password(password)
-                .parentPassword(parentPassword)
+                .password(passwordEncoder.encode(password))
+                .parentPassword(passwordEncoder.encode(parentPassword))
                 .name(name)
                 .phone(phone)
                 .birth(birth)
+                .enabled(true)
+                .createDate(LocalDateTime.now())
                 .build();
-        return save(user);
+
+        User savedUser = save(user);
+        candyHistoryService.initCandy(savedUser);
+        return savedUser;
     }
 
     @Transactional
@@ -49,19 +56,8 @@ public class UserService {
 
         User user = findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("User Not Found"));
-
-//        if (passwordEncoder.matches(password, user.getPassword())) {
-//            user.setAuthority(Authority.STUDENT);
-//        } else if (passwordEncoder.matches(password, user.getParentPassword())) {
-//            user.setAuthority(Authority.PARENT);
-//        } else {
-//            throw new IllegalArgumentException("Bad credential");
-
+        user.login(passwordEncoder, password);
         user.afterLoginSuccess();
-
-
-
-
         return user;
     }
 
