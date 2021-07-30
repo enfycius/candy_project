@@ -19,12 +19,9 @@ import static java.time.LocalDateTime.now;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class User {
-
-    public User() {
-        candyHistories = new ArrayList<>();
-    }
 
     @Id
     @GeneratedValue
@@ -68,6 +65,13 @@ public class User {
         if(!passwordEncoder.matches(credentials, password)) {
             throw new IllegalArgumentException("Bad credential");
         }
+    }
+
+    public void addCandyHistory(CandyHistory candyHistory) {
+        if (this.candyHistories == null) {
+            this.candyHistories = new ArrayList<>();
+        }
+        candyHistories.add(candyHistory);
     }
 
 }

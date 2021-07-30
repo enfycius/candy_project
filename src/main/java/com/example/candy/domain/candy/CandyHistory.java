@@ -45,6 +45,6 @@ public class CandyHistory {
         System.out.println(user);
         System.out.println(user.getEmail());
 
-        user.getCandyHistories().add(this);
+        user.addCandyHistory(this);
     }
 }

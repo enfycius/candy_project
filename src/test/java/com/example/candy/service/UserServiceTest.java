@@ -46,7 +46,7 @@ class UserServiceTest {
 
     @Test
     @Transactional
-    void 사용자_추가() {
+    void 사용자_추가_and_캔디_초기화() {
         User user = userService.join(email, password, parentPassword, name, phone, birth);
         assertNotNull(user);
         assertEquals(user.getEmail(), email);
