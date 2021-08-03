@@ -12,6 +12,8 @@ public class JoinRequestDto {
     @Email
     private String email;
 
+    private boolean emailCheck;
+
     private String password;
 
     private String parentPassword;
@@ -28,6 +30,7 @@ public class JoinRequestDto {
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
                 .append("email", email)
+                .append("emailCheck", emailCheck)
                 .append("password", password)
                 .append("password", parentPassword)
                 .append("name", name)

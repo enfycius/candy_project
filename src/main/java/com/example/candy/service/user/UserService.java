@@ -23,12 +23,13 @@ public class UserService {
     @Autowired private CandyHistoryService candyHistoryService;
 
     @Transactional
-    public User join(String email, String password, String parentPassword, String name, String phone, String birth) {
+    public User join(String email, boolean emailCheck, String password, String parentPassword, String name, String phone, String birth) {
         checkArgument(isNotEmpty(password), "password must be provided.");
         checkArgument(
                 password.length() >= 4 && password.length() <= 15,
                 "password length must be between 4 and 15 characters."
         );
+        checkArgument(emailCheck, "have to verify email");
 
         if (findByEmail(email).isPresent()) {
             throw new IllegalArgumentException("Email is already exists.");
