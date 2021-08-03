@@ -40,11 +40,6 @@ public class CandyHistory {
 
     public void addUser(User user) {
         this.user = user;
-        System.out.println(this);
-        System.out.println(this.user.getCandyHistories());
-        System.out.println(user);
-        System.out.println(user.getEmail());
-
         user.addCandyHistory(this);
     }
 }
